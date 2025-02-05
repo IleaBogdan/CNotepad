@@ -1,6 +1,5 @@
 #pragma once
-#include <stdio.h>
-#include <string.h>
+#include "../libs.h"
 
 void saveTextInFile(const char *text);
 char* loadTextFromFile(const char* filename);

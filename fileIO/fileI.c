@@ -13,8 +13,10 @@ char* loadTextFromFile(const char* filename){
     char *reader, line[257];
     while (fgets(line, sizeof(line), file)){
         memcpy(reader+strlen(reader), line, strlen(line)+1);
-        printf("%s\n", reader);
+        //printf("%s\n", reader);
+        g_free(line);
     }
     fclose(file);
+    g_free(line);
     return reader;
 }

@@ -1,5 +1,5 @@
-#include <gtk/gtk.h>  // GTK lib
 #include "fileIO\fileIO.h"
+#include "libs.h"
 
 
 GtkWidget *text_view;
@@ -14,8 +14,10 @@ void saveText(GtkWidget* button, gpointer user_data){
     g_free(text);
 }
 
-void loadFile(){
-    printf("%s - ", loadTextFromFile("save.txt"));
+bool loaded=0;
+void loadSave(){
+    loaded=1;
+    printf("%s", loadTextFromFile("save.txt"));
 }
 void activate(GtkApplication *app, gpointer user_data) {
     GtkWidget *window = gtk_application_window_new(app);
@@ -27,9 +29,18 @@ void activate(GtkApplication *app, gpointer user_data) {
     GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 3);
     gtk_container_add(GTK_CONTAINER(window), box);
     
-    GtkWidget *button = gtk_button_new_with_label("Save Text");
-    g_signal_connect(button, "clicked", G_CALLBACK(saveText), NULL);
-    gtk_box_pack_start(GTK_BOX(box), button, FALSE, FALSE, 5);
+    GtkWidget *buttonBox=gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    gtk_container_add(GTK_CONTAINER(box), buttonBox);
+    
+    GtkWidget *saveButton = gtk_button_new_with_label("Save Text");
+    g_signal_connect(saveButton, "clicked", G_CALLBACK(saveText), NULL);
+    gtk_box_pack_start(GTK_BOX(buttonBox), saveButton, FALSE, FALSE, 5);
+
+    /*GtkWidget *loadButton = gtk_button_new_with_label("Load Text");
+    //g_signal_connect(loadButton, "clicked", G_CALLBACK(reloadSave), NULL);
+    gtk_box_pack_start(GTK_BOX(buttonBox), loadButton, FALSE, FALSE, 5);
+    */
+
 
     text_view = gtk_text_view_new();
     gtk_box_pack_start(GTK_BOX(box), text_view, TRUE, TRUE, 5);
@@ -38,7 +49,8 @@ void activate(GtkApplication *app, gpointer user_data) {
 }
 
 int main(int argc, char **argv) {
-    loadFile();
+    //loadSave();
+    
     GtkApplication *app = gtk_application_new("com.example.notepad", G_APPLICATION_FLAGS_NONE);
 
     g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
