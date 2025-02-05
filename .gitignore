@@ -2,5 +2,7 @@ cmd-commands.txt
 bin
 Makefile.txt
 .vscode
-cnotepad.o
-cnotepad.exe
+*.o
+*.exe
+build.bat
+save.txt
