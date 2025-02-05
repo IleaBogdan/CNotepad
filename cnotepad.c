@@ -14,6 +14,9 @@ void saveText(GtkWidget* button, gpointer user_data){
     g_free(text);
 }
 
+void loadFile(){
+    printf("%s - ", loadTextFromFile("save.txt"));
+}
 void activate(GtkApplication *app, gpointer user_data) {
     GtkWidget *window = gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), "C Notepad");
@@ -35,6 +38,7 @@ void activate(GtkApplication *app, gpointer user_data) {
 }
 
 int main(int argc, char **argv) {
+    loadFile();
     GtkApplication *app = gtk_application_new("com.example.notepad", G_APPLICATION_FLAGS_NONE);
 
     g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
